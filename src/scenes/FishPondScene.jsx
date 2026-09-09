@@ -6,7 +6,8 @@ import sittingGirl from "../assets/nuNgoi.png";
 import fishOne from "../assets/ca1.png";
 import fishTwo from "../assets/ca2.png";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://myprojectimportant.onrender.com";
 
 const questions = [
   "Đi hồ cho mát mẽ hé, dạo này sao rồi vẫn khỏe chứ",
