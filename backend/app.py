@@ -42,6 +42,47 @@ def test_api():
     })
 
 
+@app.route("/api/gift-answers", methods=["POST"])
+def add_gift_answer():
+    payload = request.get_json(silent=True) or {}
+    session_id = str(payload.get("session_id", "")).strip()
+    question = str(payload.get("question", "")).strip()
+    answer = str(payload.get("answer", "")).strip()
+
+    if not session_id or not question or not answer:
+        return jsonify({
+            "success": False,
+            "message": "Thiếu session_id, câu hỏi hoặc câu trả lời."
+        }), 400
+
+    try:
+        result = (
+            supabase.table("gift_answers")
+            .insert({
+                "session_id": session_id,
+                "question": question,
+                "answer": answer,
+            })
+            .execute()
+        )
+        if not result.data:
+            return jsonify({
+                "success": False,
+                "message": "Không thể lưu câu trả lời."
+            }), 500
+
+        return jsonify({
+            "success": True,
+            "answer": result.data[0]
+        }), 201
+    except Exception:
+        app.logger.exception("Không thể lưu câu hỏi và câu trả lời")
+        return jsonify({
+            "success": False,
+            "message": "Không thể lưu câu trả lời lên máy chủ."
+        }), 500
+
+
 @app.route("/api/verify-password", methods=["POST"])
 def verify_password():
     payload = request.get_json(silent=True) or {}

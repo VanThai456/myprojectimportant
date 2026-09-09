@@ -162,6 +162,18 @@
   outline: none;
 }
 
+.fish-reply-controls button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.fish-save-error {
+  margin-top: 10px;
+  color: #ffd0c7;
+  font-size: 13px;
+  text-align: left;
+}
+
 @media (max-width: 600px) {
   .fishpond-scene {
     min-height: 100svh;

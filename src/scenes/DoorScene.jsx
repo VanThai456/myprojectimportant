@@ -1,5 +1,11 @@
 import "./DoorScene.css";
 import { useEffect, useState } from "react";
+import doorBackground from "../assets/door-bg.png";
+import coupleWalking from "../assets/di.png";
+import boyImage from "../assets/boy.png";
+import girlImage from "../assets/girl.png";
+import doorImage from "../assets/door.png";
+import openDoorImage from "../assets/door-open.png";
 
 function DoorScene({ onComplete }) {
   const [choice, setChoice] = useState(null);
@@ -21,27 +27,23 @@ function DoorScene({ onComplete }) {
 
   return (
     <div className={`door-scene${isDoorOpen ? " door-is-open" : ""}`}>
-      <img
-        src="/src/assets/door-bg.png"
-        alt="Background"
-        className="background"
-      />
+      <img src={doorBackground} alt="Background" className="background" />
 
       {isDoorOpen ? (
         <img
-          src="/src/assets/di.png"
+          src={coupleWalking}
           alt="Hai người đang đi về phía cánh cửa"
           className="walking-couple"
         />
       ) : (
         <>
-          <img src="/src/assets/boy.png" alt="Boy" className="boy" />
-          <img src="/src/assets/girl.png" alt="Girl" className="girl" />
+          <img src={boyImage} alt="Boy" className="boy" />
+          <img src={girlImage} alt="Girl" className="girl" />
         </>
       )}
 
       <img
-        src={isDoorOpen ? "/src/assets/door-open.png" : "/src/assets/door.png"}
+        src={isDoorOpen ? openDoorImage : doorImage}
         alt={isDoorOpen ? "Open door" : "Door"}
         className="door"
       />

@@ -1,4 +1,8 @@
 import "./cv2.css";
+import cakeBackground from "../assets/cv2-bg.png";
+import cakeBoy from "../assets/camBanh.png";
+import cakeImage from "../assets/banhKem.png";
+import candleImage from "../assets/nen.png";
 import { useEffect, useState } from "react";
 
 function Cv2({ onComplete }) {
@@ -17,20 +21,16 @@ function Cv2({ onComplete }) {
   return (
     <div className={`cv2-scene${isBlowing ? " cv2-is-dark" : ""}`}>
       {/* Bối cảnh */}
-      <img
-        src="/src/assets/cv2-bg.png"
-        alt="Công viên ban đêm"
-        className="cv2-bg"
-      />
+      <img src={cakeBackground} alt="Công viên ban đêm" className="cv2-bg" />
 
       {/* Nhân vật */}
-      <img src="/src/assets/camBanh.png" alt="Nam" className="cv2-boy" />
+      <img src={cakeBoy} alt="Nam" className="cv2-boy" />
 
       {/* Bánh kem */}
-      <img src="/src/assets/banhKem.png" alt="Bánh kem" className="cv2-cake" />
+      <img src={cakeImage} alt="Bánh kem" className="cv2-cake" />
 
       {/* Nến */}
-      <img src="/src/assets/nen.png" alt="Nến" className="cv2-candle" />
+      <img src={candleImage} alt="Nến" className="cv2-candle" />
 
       <section className="cv2-dialogue" aria-live="polite">
         <p>Ta đa, bánh kem đây chúc mừng sinh nhật nha</p>

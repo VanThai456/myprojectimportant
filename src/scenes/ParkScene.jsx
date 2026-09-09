@@ -1,4 +1,7 @@
 import "./ParkScene.css";
+import parkBackground from "../assets/park-bg.png";
+import sittingBoy from "../assets/ngoiCV.png";
+import sittingGirl from "../assets/nuNgoiCV.png";
 import { useState } from "react";
 
 function ParkScene({ onComplete }) {
@@ -6,11 +9,11 @@ function ParkScene({ onComplete }) {
 
   return (
     <div className="park-scene">
-      <img src="/src/assets/park-bg.png" alt="Công viên" className="park-bg" />
+      <img src={parkBackground} alt="Công viên" className="park-bg" />
 
-      <img src="/src/assets/ngoiCV.png" alt="Nam" className="park-boy" />
+      <img src={sittingBoy} alt="Nam" className="park-boy" />
 
-      <img src="/src/assets/nuNgoiCV.png" alt="Nữ" className="park-girl" />
+      <img src={sittingGirl} alt="Nữ" className="park-girl" />
 
       <section className="park-dialogue" aria-live="polite">
         {showSecondDialogue ? (

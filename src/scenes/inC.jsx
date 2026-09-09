@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./inC.css";
+import cinemaInterior from "../assets/trongC.png";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -71,11 +72,7 @@ function InC({ onComplete }) {
 
   return (
     <div className={`inc-scene inc-phase-${phase}`}>
-      <img
-        src="/src/assets/trongC.png"
-        alt="Trong rạp phim"
-        className="inc-image"
-      />
+      <img src={cinemaInterior} alt="Trong rạp phim" className="inc-image" />
 
       <div className="inc-darkness" aria-hidden="true" />
 

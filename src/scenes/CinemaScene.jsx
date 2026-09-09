@@ -1,5 +1,9 @@
 import "./CinemaScene.css";
 import { useEffect, useState } from "react";
+import cinemaBackground from "../assets/cinema-bg.png";
+import coupleWalking from "../assets/di.png";
+import boyImage from "../assets/boy.png";
+import girlImage from "../assets/girl.png";
 
 function CinemaScene({ onComplete }) {
   const [isEnteringCinema, setIsEnteringCinema] = useState(false);
@@ -19,22 +23,18 @@ function CinemaScene({ onComplete }) {
       className={`cinema-scene${isEnteringCinema ? " cinema-is-entering" : ""}`}
     >
       {/* Background rạp phim */}
-      <img
-        src="/src/assets/cinema-bg.png"
-        alt="Rạp phim"
-        className="cinema-bg"
-      />
+      <img src={cinemaBackground} alt="Rạp phim" className="cinema-bg" />
 
       {isEnteringCinema ? (
         <img
-          src="/src/assets/di.png"
+          src={coupleWalking}
           alt="Hai người đi vào cửa số 2"
           className="cinema-walking-couple"
         />
       ) : (
         <>
-          <img src="/src/assets/boy.png" alt="Nam" className="cinema-boy" />
-          <img src="/src/assets/girl.png" alt="Nữ" className="cinema-girl" />
+          <img src={boyImage} alt="Nam" className="cinema-boy" />
+          <img src={girlImage} alt="Nữ" className="cinema-girl" />
         </>
       )}
 
