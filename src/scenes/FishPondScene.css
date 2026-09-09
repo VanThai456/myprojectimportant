@@ -1,0 +1,189 @@
+.fishpond-scene {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 480px;
+  overflow: hidden;
+  background: #8fcbea;
+}
+
+.fishpond-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.fish-boy {
+  position: absolute;
+  z-index: 3;
+  width: 229px;
+  top: 7%;
+  left: 57%;
+}
+
+.fish-girl {
+  position: absolute;
+  z-index: 3;
+  width: 179px;
+  top: 7%;
+  left: 68%;
+}
+
+.fish {
+  position: absolute;
+  z-index: 2;
+
+  width: 70px;
+
+  animation: fish-swim 5s linear infinite;
+}
+
+.fish-1 {
+  left: 30%;
+  top: 60%;
+  animation-delay: 0s;
+}
+
+.fish-2 {
+  left: 48%;
+  top: 70%;
+  width: 55px;
+  animation-delay: 1.5s;
+}
+
+.fish-3 {
+  left: 60%;
+  top: 76%;
+  width: 65px;
+  animation-delay: 3s;
+}
+
+@keyframes fish-swim {
+  0% {
+    transform: translateX(-80px);
+  }
+
+  50% {
+    transform: translateX(120px);
+  }
+
+  100% {
+    transform: translateX(-80px);
+  }
+}
+
+.fish-dialogue {
+  position: absolute;
+  z-index: 10;
+  right: auto;
+  top: 3%;
+  left: 4%;
+  width: min(560px, calc(100% - 8%));
+  padding: 14px 18px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  background: rgba(25, 62, 72, 0.88);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.fish-dialogue-boy,
+.fish-dialogue-girl {
+  margin: 0;
+  font-size: clamp(16px, 1.7vw, 21px);
+  line-height: 1.4;
+}
+
+.fish-dialogue-boy {
+  color: #fff4c7;
+}
+
+.fish-dialogue-girl {
+  color: #c9f2ff;
+}
+
+.fish-reply-form {
+  margin-top: 18px;
+}
+
+.fish-reply-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #c9f2ff;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.fish-reply-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.fish-next-choice {
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.fish-reply-controls input {
+  min-width: 0;
+  flex: 1;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #183b44;
+  font-size: 16px;
+}
+
+.fish-reply-controls input:focus-visible {
+  outline: 3px solid rgba(201, 242, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.fish-reply-controls button {
+  padding: 10px 20px;
+  border: 1px solid #fff4c7;
+  border-radius: 10px;
+  background: #fff4c7;
+  color: #183b44;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.fish-reply-controls button:hover,
+.fish-reply-controls button:focus-visible {
+  background: #ffffff;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .fishpond-scene {
+    min-height: 100svh;
+  }
+
+  .fish-boy {
+    width: min(229px, 32vw);
+  }
+
+  .fish-girl {
+    width: min(179px, 26vw);
+  }
+
+  .fish-dialogue {
+    right: 4%;
+    top: 2%;
+    left: 5%;
+    width: auto;
+    padding: 16px;
+  }
+
+  .fish-reply-controls {
+    flex-direction: column;
+  }
+}

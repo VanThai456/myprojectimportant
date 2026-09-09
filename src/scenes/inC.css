@@ -1,0 +1,255 @@
+.inc-scene {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #111;
+}
+
+.inc-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  animation: inc-slow-zoom 8s ease-in-out forwards;
+}
+
+.inc-darkness {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.34);
+  pointer-events: none;
+}
+
+.inc-scene.inc-phase-countdown .inc-darkness,
+.inc-scene.inc-phase-showing .inc-darkness,
+.inc-scene.inc-phase-loading .inc-darkness {
+  background: rgba(0, 0, 0, 0.58);
+  transition: background 1.2s ease;
+}
+
+@keyframes inc-slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.inc-dialogue {
+  position: absolute;
+  z-index: 6;
+  right: 5%;
+  bottom: 4%;
+  left: 5%;
+  max-width: 680px;
+  margin: auto;
+  padding: 16px 20px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  background: rgba(25, 25, 35, 0.9);
+  color: white;
+  text-align: center;
+}
+
+.inc-dialogue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+}
+
+.inc-countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  color: #fff4d2;
+  font:
+    700 clamp(90px, 18vw, 180px)/1 "Segoe UI",
+    Tahoma,
+    sans-serif;
+  text-shadow: 0 0 28px rgba(255, 216, 125, 0.8);
+}
+
+.inc-countdown span {
+  animation: inc-countdown-pop 900ms ease both;
+}
+
+@keyframes inc-countdown-pop {
+  from {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  35% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+.inc-projection {
+  position: absolute;
+  inset: 8% 8% 10%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  animation: inc-film-in 1.4s ease both;
+}
+
+.inc-memory-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 8px solid #f7f0dc;
+  box-shadow:
+    0 0 0 2px rgba(91, 65, 40, 0.7),
+    0 18px 50px rgba(0, 0, 0, 0.7);
+}
+
+.inc-film-loader {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+  animation: inc-loader-hide 1.4s ease forwards;
+}
+
+.inc-film-loader span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffe2a0;
+  animation: inc-loader-light 800ms ease-in-out infinite alternate;
+}
+
+.inc-film-loader span:nth-child(2) {
+  animation-delay: 180ms;
+}
+.inc-film-loader span:nth-child(3) {
+  animation-delay: 360ms;
+}
+
+@keyframes inc-loader-light {
+  from {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes inc-loader-hide {
+  0%,
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes inc-film-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: brightness(0.35) blur(5px);
+  }
+  55% {
+    opacity: 1;
+    filter: brightness(0.8) blur(1px);
+  }
+  to {
+    transform: scale(1);
+    filter: brightness(1) blur(0);
+  }
+}
+
+.inc-photo-counter,
+.inc-status {
+  position: absolute;
+  z-index: 4;
+  color: rgba(255, 244, 210, 0.82);
+  font:
+    600 14px/1.4 "Segoe UI",
+    Tahoma,
+    sans-serif;
+  letter-spacing: 1px;
+}
+
+.inc-photo-counter {
+  right: 0;
+  bottom: -28px;
+}
+
+.inc-status {
+  bottom: 8%;
+}
+
+.inc-dialogue p {
+  margin: 0;
+  font-size: clamp(17px, 2vw, 24px);
+  line-height: 1.4;
+}
+
+.inc-dialogue button {
+  margin-top: 14px;
+  padding: 9px 28px;
+  border: 1px solid #ffe5a3;
+  border-radius: 10px;
+  background: #fff8dd;
+  color: #302a1f;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.inc-dialogue button:hover,
+.inc-dialogue button:focus-visible {
+  background: #ffffff;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .inc-scene {
+    min-height: 100svh;
+  }
+
+  .inc-dialogue {
+    right: 4%;
+    left: 4%;
+    padding: 14px;
+  }
+
+  .inc-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .inc-projection {
+    inset: 12% 5% 14%;
+  }
+
+  .inc-memory-image {
+    border-width: 5px;
+  }
+}

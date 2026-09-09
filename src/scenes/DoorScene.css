@@ -1,0 +1,195 @@
+.door-scene {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 480px;
+  overflow: hidden;
+  background: black;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.walking-couple,
+.boy,
+.girl,
+.door {
+  position: absolute;
+  z-index: 2;
+}
+
+.boy,
+.girl {
+  width: 180px;
+  bottom: 10%;
+}
+
+.boy {
+  left: 25%;
+}
+
+.girl {
+  left: 38%;
+}
+
+.walking-couple {
+  width: min(390px, 42vw);
+  left: 18%;
+  bottom: 7%;
+  z-index: 3;
+  transform-origin: center bottom;
+  animation: walk-to-door 3s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes walk-to-door {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(250px, -90px) scale(1);
+  }
+}
+
+.door-is-open .walking-couple {
+  transform: translate(250px, -90px) scale(1);
+}
+
+.door {
+  width: min(300px, 28vw);
+  right: 20%;
+  bottom: 18%;
+}
+
+.start-button {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 6%;
+  transform: translateX(-50%);
+  padding: 14px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.dialogue {
+  position: absolute;
+  z-index: 5;
+  right: 8%;
+  top: 15%;
+  left: 8%;
+  max-width: 760px;
+  margin: auto;
+  padding: 20px 24px 22px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 18px;
+  background: rgba(35, 24, 46, 0.88);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.dialogue::after {
+  position: absolute;
+  bottom: -18px;
+  left: 27%;
+  width: 0;
+  height: 0;
+  border-top: 20px solid rgba(35, 24, 46, 0.88);
+  border-right: 16px solid transparent;
+  content: "";
+}
+
+.dialogue-text {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.4;
+}
+
+.dialogue-choices {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.dialogue-choices button {
+  min-width: 130px;
+  padding: 10px 22px;
+  border: 1px solid #ffd6a5;
+  border-radius: 10px;
+  background: #fff7ed;
+  color: #35213e;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.dialogue-choices button:hover,
+.dialogue-choices button:focus-visible {
+  background: #ffd6a5;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.dialogue-response {
+  margin: 18px 0 0;
+  color: #ffd6a5;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .door-scene {
+    min-height: 100svh;
+  }
+
+  .boy,
+  .girl {
+    width: min(180px, 30vw);
+  }
+
+  .door {
+    width: min(300px, 42vw);
+  }
+
+  .dialogue {
+    right: 5%;
+    top: 3%;
+    left: 5%;
+    padding: 16px;
+  }
+
+  .dialogue-choices button {
+    min-width: 112px;
+  }
+
+  .walking-couple {
+    width: min(330px, 68vw);
+    left: 8%;
+  }
+
+  .door-is-open .walking-couple {
+    transform: translate(125px, -55px) scale(1);
+  }
+
+  @keyframes walk-to-door {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+
+    to {
+      transform: translate(125px, -55px) scale(1);
+    }
+  }
+}

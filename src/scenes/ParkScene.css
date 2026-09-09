@@ -1,0 +1,99 @@
+.park-scene {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 480px;
+  overflow: hidden;
+  background: #111;
+}
+
+/* Background */
+.park-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Nam */
+.park-boy {
+  position: absolute;
+  z-index: 3;
+  width: 200px;
+  left: 32%;
+  bottom: 20%;
+}
+
+/* Nữ */
+.park-girl {
+  position: absolute;
+  z-index: 3;
+  width: 200px;
+  left: 43%;
+  bottom: 20%;
+}
+
+.park-dialogue {
+  position: absolute;
+  z-index: 10;
+  top: 4%;
+  right: 5%;
+  left: 5%;
+  max-width: 760px;
+  margin: auto;
+  padding: 16px 20px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  background: rgba(25, 25, 35, 0.88);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.park-dialogue p {
+  margin: 0;
+  font-size: clamp(16px, 1.8vw, 22px);
+  line-height: 1.4;
+}
+
+.park-dialogue button {
+  margin-top: 16px;
+  padding: 10px 28px;
+  border: 1px solid #ffe5a3;
+  border-radius: 10px;
+  background: #fff8dd;
+  color: #302a1f;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.park-dialogue button:hover,
+.park-dialogue button:focus-visible {
+  background: white;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .park-scene {
+    min-height: 100svh;
+  }
+
+  .park-boy,
+  .park-girl {
+    width: min(200px, 34vw);
+  }
+
+  .park-dialogue {
+    top: 2%;
+    right: 4%;
+    left: 4%;
+    padding: 14px;
+  }
+}
+
+.park-button:hover {
+  transform: translateX(-50%) scale(1.05);
+}

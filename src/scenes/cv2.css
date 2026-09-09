@@ -1,0 +1,145 @@
+.cv2-scene {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 480px;
+  overflow: hidden;
+  background: #111;
+}
+
+/* Bối cảnh */
+.cv2-bg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 1;
+}
+
+/* Nhân vật */
+.cv2-boy {
+  position: absolute;
+
+  width: min(500px, 72vw);
+
+  left: 50%;
+  bottom: -30%;
+
+  transform: translateX(-50%);
+
+  z-index: 3;
+}
+
+/* Bánh */
+.cv2-cake {
+  position: absolute;
+
+  width: 150px;
+
+  left: 50%;
+  top: 47%;
+
+  transform: translateX(-50%);
+
+  z-index: 4;
+}
+
+/* Nến */
+.cv2-candle {
+  position: absolute;
+
+  width: 70px;
+
+  left: 50%;
+  top: 47%;
+
+  transform: translateX(-50%);
+
+  z-index: 5;
+}
+
+.cv2-dialogue {
+  position: absolute;
+  z-index: 10;
+  top: 4%;
+  right: 5%;
+  left: 5%;
+  max-width: 620px;
+  margin: auto;
+  padding: 16px 20px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  background: rgba(25, 25, 35, 0.9);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.cv2-dialogue p {
+  margin: 0;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.4;
+}
+
+.cv2-dialogue button {
+  margin-top: 16px;
+  padding: 10px 24px;
+  border: 1px solid #ffe5a3;
+  border-radius: 10px;
+  background: #fff8dd;
+  color: #302a1f;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cv2-dialogue button:hover,
+.cv2-dialogue button:focus-visible {
+  background: white;
+  outline: none;
+}
+
+.cv2-dialogue button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.cv2-fade-out {
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  background: #000;
+  animation: cv2-fade-to-black 1.8s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes cv2-fade-to-black {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .cv2-scene {
+    min-height: 100svh;
+  }
+
+  .cv2-boy {
+    width: min(500px, 92vw);
+  }
+
+  .cv2-dialogue {
+    top: 2%;
+    right: 4%;
+    left: 4%;
+    padding: 14px;
+  }
+}
