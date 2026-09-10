@@ -25,21 +25,21 @@
 
 .boy,
 .girl {
-  width: 180px;
+  width: clamp(120px, 14vw, 180px);
   bottom: 10%;
 }
 
 .boy {
-  left: 25%;
+  left: 20%;
 }
 
 .girl {
-  left: 38%;
+  left: 31%;
 }
 
 .walking-couple {
-  width: min(390px, 42vw);
-  left: 18%;
+  width: clamp(240px, 30vw, 390px);
+  left: 15%;
   bottom: 7%;
   z-index: 3;
   transform-origin: center bottom;
@@ -48,21 +48,26 @@
 
 @keyframes walk-to-door {
   from {
-    transform: translate(0, 0) scale(1);
+    left: 15%;
+    bottom: 7%;
+    transform: scale(1);
   }
 
   to {
-    transform: translate(250px, -90px) scale(1);
+    left: 62%;
+    bottom: 19%;
+    transform: scale(1);
   }
 }
 
 .door-is-open .walking-couple {
-  transform: translate(250px, -90px) scale(1);
+  left: 62%;
+  bottom: 19%;
 }
 
 .door {
-  width: min(300px, 28vw);
-  right: 20%;
+  width: clamp(180px, 24vw, 300px);
+  right: 12%;
   bottom: 18%;
 }
 
@@ -156,11 +161,22 @@
 
   .boy,
   .girl {
-    width: min(180px, 30vw);
+    width: clamp(95px, 27vw, 135px);
+    bottom: 10%;
+  }
+
+  .boy {
+    left: 5%;
+  }
+
+  .girl {
+    left: 26%;
   }
 
   .door {
-    width: min(300px, 42vw);
+    width: clamp(135px, 37vw, 205px);
+    right: 4%;
+    bottom: 17%;
   }
 
   .dialogue {
@@ -175,21 +191,26 @@
   }
 
   .walking-couple {
-    width: min(330px, 68vw);
-    left: 8%;
+    width: clamp(200px, 58vw, 280px);
+    left: 4%;
   }
 
   .door-is-open .walking-couple {
-    transform: translate(125px, -55px) scale(1);
+    left: 48%;
+    bottom: 17%;
   }
 
   @keyframes walk-to-door {
     from {
-      transform: translate(0, 0) scale(1);
+      left: 4%;
+      bottom: 7%;
+      transform: scale(1);
     }
 
     to {
-      transform: translate(125px, -55px) scale(1);
+      left: 48%;
+      bottom: 17%;
+      transform: scale(0.92);
     }
   }
 }

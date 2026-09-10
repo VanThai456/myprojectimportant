@@ -6,10 +6,12 @@ import boyImage from "../assets/boy.png";
 import girlImage from "../assets/girl.png";
 import doorImage from "../assets/door.png";
 import openDoorImage from "../assets/door-open.png";
+import TypewriterText from "../components/TypewriterText";
 
 function DoorScene({ onComplete }) {
   const [choice, setChoice] = useState(null);
   const [isDoorOpen, setIsDoorOpen] = useState(false);
+  const [isDialogueReady, setIsDialogueReady] = useState(false);
 
   useEffect(() => {
     if (!isDoorOpen) {
@@ -51,27 +53,38 @@ function DoorScene({ onComplete }) {
       {!isDoorOpen && (
         <section className="dialogue" aria-live="polite">
           <p className="dialogue-text">
-            {choice === "no"
-              ? "Thôi mà đi với tôi đi, hôm nay ngày đặc biệt mà"
-              : "Xin chào, lâu rồi không gặp hôm nay đi chơi với tôi một lúc nhá"}
+            <TypewriterText
+              text={
+                choice === "no"
+                  ? "Thôi mà đi với tôi đi, hôm nay ngày đặc biệt mà"
+                  : "Xin chào, lâu rồi không gặp hôm nay đi chơi với tôi một lúc nhá"
+              }
+              onComplete={() => setIsDialogueReady(true)}
+            />
           </p>
 
-          {choice === null ? (
+          {isDialogueReady && choice === null ? (
             <div className="dialogue-choices">
               <button type="button" onClick={openDoor}>
                 được thôi
               </button>
-              <button type="button" onClick={() => setChoice("no")}>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsDialogueReady(false);
+                  setChoice("no");
+                }}
+              >
                 không
               </button>
             </div>
-          ) : (
+          ) : isDialogueReady ? (
             <div className="dialogue-choices">
               <button type="button" onClick={openDoor}>
                 Thôi được rồi
               </button>
             </div>
-          )}
+          ) : null}
         </section>
       )}
     </div>

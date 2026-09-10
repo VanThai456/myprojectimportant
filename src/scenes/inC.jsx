@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./inC.css";
 import cinemaInterior from "../assets/trongC.png";
+import TypewriterText from "../components/TypewriterText";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://myprojectimportant.onrender.com";
 
-function InC({ onComplete }) {
+function InC({ onComplete, onCountdownComplete }) {
   const [phase, setPhase] = useState("intro");
   const [countdown, setCountdown] = useState(3);
   const [images, setImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [error, setError] = useState("");
+  const [isDialogueReady, setIsDialogueReady] = useState(false);
   const timersRef = useRef([]);
   const hasStartedRef = useRef(false);
 
@@ -40,11 +43,14 @@ function InC({ onComplete }) {
         setTimeout(() => setCountdown(1), 2000),
         setTimeout(() => {
           setActiveIndex(0);
+          onCountdownComplete();
+          setIsDialogueReady(false);
           setPhase(photoList.length > 0 ? "showing" : "empty");
         }, 3000),
       );
     } catch (requestError) {
       setError(requestError.message || "Không thể kết nối máy chủ.");
+      setIsDialogueReady(false);
       setPhase("error");
     }
   }, []);
@@ -109,17 +115,25 @@ function InC({ onComplete }) {
 
       {phase === "error" && (
         <section className="inc-dialogue inc-error-dialogue" aria-live="polite">
-          <p>{error}</p>
-          <button
-            type="button"
-            onClick={() => {
-              hasStartedRef.current = false;
-              setPhase("intro");
-              startProjection();
-            }}
-          >
-            Thử lại
-          </button>
+          <p>
+            <TypewriterText
+              text={error}
+              onComplete={() => setIsDialogueReady(true)}
+            />
+          </p>
+          {isDialogueReady && (
+            <button
+              type="button"
+              onClick={() => {
+                hasStartedRef.current = false;
+                setIsDialogueReady(false);
+                setPhase("intro");
+                startProjection();
+              }}
+            >
+              Thử lại
+            </button>
+          )}
         </section>
       )}
 
@@ -128,10 +142,17 @@ function InC({ onComplete }) {
           className="inc-dialogue inc-finish-dialogue"
           aria-live="polite"
         >
-          <p>tôi còn 1 chổ muốn dẫn bạn đi nữa, đi thôi</p>
-          <button type="button" onClick={onComplete}>
-            OK
-          </button>
+          <p>
+            <TypewriterText
+              text="tôi còn 1 chổ muốn dẫn bạn đi nữa, đi thôi"
+              onComplete={() => setIsDialogueReady(true)}
+            />
+          </p>
+          {isDialogueReady && (
+            <button type="button" onClick={onComplete}>
+              OK
+            </button>
+          )}
         </section>
       )}
     </div>

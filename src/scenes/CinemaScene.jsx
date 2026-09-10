@@ -4,9 +4,11 @@ import cinemaBackground from "../assets/cinema-bg.png";
 import coupleWalking from "../assets/di.png";
 import boyImage from "../assets/boy.png";
 import girlImage from "../assets/girl.png";
+import TypewriterText from "../components/TypewriterText";
 
 function CinemaScene({ onComplete }) {
   const [isEnteringCinema, setIsEnteringCinema] = useState(false);
+  const [isDialogueReady, setIsDialogueReady] = useState(false);
 
   useEffect(() => {
     if (!isEnteringCinema) {
@@ -41,12 +43,16 @@ function CinemaScene({ onComplete }) {
       {!isEnteringCinema && (
         <section className="cinema-dialogue" aria-live="polite">
           <p>
-            ở đây có vài tấm ảnh tôi chụp được có bạn với có ảnh tôi thấy đẹp
-            nên khoe, nên xem vui thôi không được giận gì tôi đâu nha
+            <TypewriterText
+              text="ở đây có vài tấm ảnh tôi chụp được có bạn với có ảnh tôi thấy đẹp nên khoe, nên xem vui thôi không được giận gì tôi đâu nha"
+              onComplete={() => setIsDialogueReady(true)}
+            />
           </p>
-          <button type="button" onClick={() => setIsEnteringCinema(true)}>
-            coi trước đã tính với bạn sau
-          </button>
+          {isDialogueReady && (
+            <button type="button" onClick={() => setIsEnteringCinema(true)}>
+              coi trước đã tính với bạn sau
+            </button>
+          )}
         </section>
       )}
     </div>

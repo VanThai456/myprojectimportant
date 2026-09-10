@@ -3,7 +3,8 @@ import * as THREE from "three";
 import PhotoGalleryModal from "../components/PhotoGalleryModal";
 import "./StarrySky.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://myprojectimportant.onrender.com";
 
 const birthdayLetters = [
   "Chúc cậu có một sinh nhật thật vui, 1 ngày tuyệt vời và 1 tuổi mới thật hạnh phúc.",
@@ -52,7 +53,7 @@ function StarrySky() {
           id: `${letterIndex}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
           message: birthdayLetters[letterIndex],
           startTop: topPositions[letterIndex % topPositions.length],
-          startRight: -60 - ((letterIndex * 25) % 80),
+          startRight: -8 - ((letterIndex * 3) % 8),
           duration: durations[letterIndex % durations.length],
           angle: angles[letterIndex % angles.length],
         },

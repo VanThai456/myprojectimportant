@@ -21,18 +21,18 @@
 .park-boy {
   position: absolute;
   z-index: 3;
-  width: 200px;
-  left: 32%;
-  bottom: 20%;
+  width: clamp(140px, 16vw, 200px);
+  left: 31%;
+  bottom: 28%;
 }
 
 /* Nữ */
 .park-girl {
   position: absolute;
   z-index: 3;
-  width: 200px;
-  left: 43%;
-  bottom: 20%;
+  width: clamp(140px, 16vw, 200px);
+  left: 44%;
+  bottom: 28%;
 }
 
 .park-dialogue {
@@ -83,7 +83,16 @@
 
   .park-boy,
   .park-girl {
-    width: min(200px, 34vw);
+    width: clamp(115px, 28vw, 160px);
+    bottom: 28%;
+  }
+
+  .park-boy {
+    left: 23%;
+  }
+
+  .park-girl {
+    left: 44%;
   }
 
   .park-dialogue {

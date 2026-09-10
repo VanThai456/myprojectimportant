@@ -5,6 +5,7 @@ import sittingBoy from "../assets/namNgoi.png";
 import sittingGirl from "../assets/nuNgoi.png";
 import fishOne from "../assets/ca1.png";
 import fishTwo from "../assets/ca2.png";
+import TypewriterText from "../components/TypewriterText";
 
 const API_URL =
   import.meta.env.VITE_API_URL || "https://myprojectimportant.onrender.com";
@@ -32,6 +33,7 @@ function FishPondScene({ onComplete }) {
   const [thirdReply, setThirdReply] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
+  const [isDialogueReady, setIsDialogueReady] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,6 +70,7 @@ function FishPondScene({ onComplete }) {
       } else {
         setThirdReply(trimmedReply);
       }
+      setIsDialogueReady(false);
       setReply("");
     } catch (error) {
       setSaveError(error.message || "Không thể lưu câu trả lời.");
@@ -92,36 +95,46 @@ function FishPondScene({ onComplete }) {
         {thirdReply ? (
           <>
             <p className="fish-dialogue-boy fish-dialogue-next">
-              Đi đây nè, tôi có vài thứ cho bạn coi nè
+              <TypewriterText
+                text="Đi đây nè, tôi có vài thứ cho bạn coi nè"
+                onComplete={() => setIsDialogueReady(true)}
+              />
             </p>
-            <div className="fish-reply-controls fish-next-choice">
-              <button type="button" onClick={onComplete}>
-                được thôi
-              </button>
-            </div>
+            {isDialogueReady && (
+              <div className="fish-reply-controls fish-next-choice">
+                <button type="button" onClick={onComplete}>
+                  được thôi
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <>
             <p className="fish-dialogue-boy">
-              {questions[firstReply ? (secondReply ? 2 : 1) : 0]}
+              <TypewriterText
+                text={questions[firstReply ? (secondReply ? 2 : 1) : 0]}
+                onComplete={() => setIsDialogueReady(true)}
+              />
             </p>
-            <form className="fish-reply-form" onSubmit={handleSubmit}>
-              <label htmlFor="fish-reply">Trả lời</label>
-              <div className="fish-reply-controls">
-                <input
-                  id="fish-reply"
-                  type="text"
-                  value={reply}
-                  onChange={(event) => setReply(event.target.value)}
-                  placeholder="Nhập câu trả lời..."
-                  autoComplete="off"
-                />
-                <button type="submit" disabled={isSaving}>
-                  {isSaving ? "ĐANG LƯU..." : "GỬI"}
-                </button>
-              </div>
-              {saveError && <p className="fish-save-error">{saveError}</p>}
-            </form>
+            {isDialogueReady && (
+              <form className="fish-reply-form" onSubmit={handleSubmit}>
+                <label htmlFor="fish-reply">Trả lời</label>
+                <div className="fish-reply-controls">
+                  <input
+                    id="fish-reply"
+                    type="text"
+                    value={reply}
+                    onChange={(event) => setReply(event.target.value)}
+                    placeholder="Nhập câu trả lời..."
+                    autoComplete="off"
+                  />
+                  <button type="submit" disabled={isSaving}>
+                    {isSaving ? "ĐANG LƯU..." : "GỬI"}
+                  </button>
+                </div>
+                {saveError && <p className="fish-save-error">{saveError}</p>}
+              </form>
+            )}
           </>
         )}
       </section>

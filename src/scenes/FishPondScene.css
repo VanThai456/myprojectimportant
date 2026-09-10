@@ -19,7 +19,7 @@
 .fish-boy {
   position: absolute;
   z-index: 3;
-  width: 229px;
+  width: clamp(150px, 18vw, 229px);
   top: 7%;
   left: 57%;
 }
@@ -27,7 +27,7 @@
 .fish-girl {
   position: absolute;
   z-index: 3;
-  width: 179px;
+  width: clamp(130px, 14vw, 179px);
   top: 7%;
   left: 68%;
 }
@@ -36,7 +36,7 @@
   position: absolute;
   z-index: 2;
 
-  width: 70px;
+  width: clamp(48px, 5.5vw, 70px);
 
   animation: fish-swim 5s linear infinite;
 }
@@ -50,14 +50,14 @@
 .fish-2 {
   left: 48%;
   top: 70%;
-  width: 55px;
+  width: clamp(40px, 4.3vw, 55px);
   animation-delay: 1.5s;
 }
 
 .fish-3 {
   left: 60%;
   top: 76%;
-  width: 65px;
+  width: clamp(44px, 5vw, 65px);
   animation-delay: 3s;
 }
 
@@ -179,14 +179,6 @@
     min-height: 100svh;
   }
 
-  .fish-boy {
-    width: min(229px, 32vw);
-  }
-
-  .fish-girl {
-    width: min(179px, 26vw);
-  }
-
   .fish-dialogue {
     right: 4%;
     top: 2%;
@@ -197,5 +189,16 @@
 
   .fish-reply-controls {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .fish-dialogue {
+    top: auto;
+    bottom: 3%;
+    left: 4%;
+    right: 4%;
+    width: auto;
+    padding: 14px 16px;
   }
 }

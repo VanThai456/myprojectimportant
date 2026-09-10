@@ -22,7 +22,7 @@
   position: absolute;
   z-index: 3;
 
-  width: 180px;
+  width: clamp(120px, 14vw, 180px);
 
   left: 22%;
   bottom: 10%;
@@ -33,7 +33,7 @@
   position: absolute;
   z-index: 3;
 
-  width: 180px;
+  width: clamp(120px, 14vw, 180px);
 
   left: 33%;
   bottom: 10%;
@@ -42,7 +42,7 @@
 .cinema-walking-couple {
   position: absolute;
   z-index: 4;
-  width: min(390px, 42vw);
+  width: clamp(240px, 30vw, 390px);
   left: 18%;
   bottom: 8%;
   transform-origin: center bottom;
@@ -51,11 +51,15 @@
 
 @keyframes enter-cinema-door {
   from {
-    transform: translate(0, 0) scale(1);
+    left: 18%;
+    bottom: 8%;
+    transform: scale(1);
   }
 
   to {
-    transform: translate(250px, -80px) scale(0.78);
+    left: 55%;
+    bottom: 19%;
+    transform: scale(0.78);
   }
 }
 
@@ -103,11 +107,6 @@
     min-height: 100svh;
   }
 
-  .cinema-boy,
-  .cinema-girl {
-    width: min(180px, 30vw);
-  }
-
   .cinema-dialogue {
     top: 2%;
     left: 4%;
@@ -116,17 +115,21 @@
   }
 
   .cinema-walking-couple {
-    width: min(330px, 68vw);
+    width: clamp(250px, 68vw, 330px);
     left: 8%;
   }
 
   @keyframes enter-cinema-door {
     from {
-      transform: translate(0, 0) scale(1);
+      left: 8%;
+      bottom: 8%;
+      transform: scale(1);
     }
 
     to {
-      transform: translate(120px, -45px) scale(0.78);
+      left: 45%;
+      bottom: 17%;
+      transform: scale(0.78);
     }
   }
 }

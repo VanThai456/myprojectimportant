@@ -5,7 +5,13 @@ import InC from "./scenes/inC";
 import ParkScene from "./scenes/ParkScene";
 import Cv2 from "./scenes/cv2";
 import StarrySky from "./scenes/StarrySky";
-import { useEffect, useState } from "react";
+import RotatePrompt from "./components/RotatePrompt";
+import nhacDiChoi from "./assets/nhadichoi.mp3";
+import nhac from "./assets/nhac.mp3";
+import cv from "./assets/cv.mp3";
+import kg from "./assets/kg.mp3";
+import bk from "./assets/bk.mp3";
+import { useRef, useState } from "react";
 import "./App.css";
 
 const API_URL =
@@ -84,114 +90,31 @@ function PasswordGate({ onUnlock }) {
   );
 }
 
-function OrientationControls({ children }) {
-  const [orientation, setOrientation] = useState(() =>
-    window.matchMedia("(orientation: landscape)").matches
-      ? "landscape"
-      : "portrait",
-  );
-  const [showNotice, setShowNotice] = useState(true);
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    const updateOrientation = () => {
-      setOrientation(
-        window.matchMedia("(orientation: landscape)").matches
-          ? "landscape"
-          : "portrait",
-      );
-    };
-
-    window.addEventListener("resize", updateOrientation);
-    window.screen?.orientation?.addEventListener?.("change", updateOrientation);
-    return () => {
-      window.removeEventListener("resize", updateOrientation);
-      window.screen?.orientation?.removeEventListener?.(
-        "change",
-        updateOrientation,
-      );
-    };
-  }, []);
-
-  useEffect(() => {
-    const noticeTimer = setTimeout(() => setShowNotice(false), 9000);
-    return () => clearTimeout(noticeTimer);
-  }, []);
-
-  async function toggleOrientation() {
-    const nextOrientation =
-      orientation === "landscape" ? "portrait" : "landscape";
-    setStatus("");
-
-    try {
-      if (nextOrientation === "landscape" && !document.fullscreenElement) {
-        await document.documentElement.requestFullscreen?.();
-      } else if (nextOrientation === "portrait" && document.fullscreenElement) {
-        await document.exitFullscreen?.();
-      }
-
-      if (window.screen?.orientation?.lock) {
-        await window.screen.orientation.lock(nextOrientation);
-      }
-      setOrientation(nextOrientation);
-    } catch {
-      setStatus(
-        "Thiết bị chưa cho phép khóa hướng màn hình. Bạn hãy xoay máy thủ công nhé.",
-      );
-    }
-  }
-
-  return (
-    <div className={`orientation-shell is-${orientation}`}>
-      {children}
-      {showNotice && orientation === "portrait" && (
-        <div className="orientation-notice" role="status">
-          <span className="orientation-notice-icon" aria-hidden="true">
-            ↔
-          </span>
-          <p>Hãy xoay ngang điện thoại để có trải nghiệm tốt nhất.</p>
-          <button
-            type="button"
-            onClick={() => setShowNotice(false)}
-            aria-label="Đóng thông báo"
-          >
-            ×
-          </button>
-        </div>
-      )}
-      <button
-        type="button"
-        className="orientation-toggle"
-        onClick={toggleOrientation}
-        aria-label={
-          orientation === "landscape"
-            ? "Chuyển sang màn hình dọc"
-            : "Chuyển sang màn hình ngang"
-        }
-        title={
-          orientation === "landscape" ? "Chuyển sang dọc" : "Chuyển sang ngang"
-        }
-      >
-        <span aria-hidden="true">
-          {orientation === "landscape" ? "↕" : "↔"}
-        </span>
-        <small>{orientation === "landscape" ? "Dọc" : "Ngang"}</small>
-      </button>
-      {status && (
-        <p className="orientation-status" role="status">
-          {status}
-        </p>
-      )}
-    </div>
-  );
-}
-
 function App() {
   const [scene, setScene] = useState("door");
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const musicRef = useRef(null);
+
+  function unlockJourney() {
+    playMusic(nhacDiChoi);
+    setIsUnlocked(true);
+  }
+
+  function playMusic(source) {
+    if (musicRef.current) {
+      musicRef.current.pause();
+      musicRef.current.currentTime = 0;
+    }
+
+    const music = new Audio(source);
+    music.loop = true;
+    music.volume = 0.65;
+    musicRef.current = music;
+    music.play().catch(() => {});
+  }
 
   if (!isUnlocked) {
-    return <PasswordGate onUnlock={() => setIsUnlocked(true)} />;
+    return <PasswordGate onUnlock={unlockJourney} />;
   }
 
   let currentScene = null;
@@ -202,14 +125,39 @@ function App() {
   if (scene === "cinema")
     currentScene = <CinemaScene onComplete={() => setScene("inc")} />;
   if (scene === "inc")
-    currentScene = <InC onComplete={() => setScene("park")} />;
+    currentScene = (
+      <InC
+        onComplete={() => {
+          playMusic(cv);
+          setScene("park");
+        }}
+        onCountdownComplete={() => playMusic(nhac)}
+      />
+    );
   if (scene === "park")
-    currentScene = <ParkScene onComplete={() => setScene("cv2")} />;
+    currentScene = (
+      <ParkScene
+        onComplete={() => {
+          playMusic(bk);
+          setScene("cv2");
+        }}
+      />
+    );
   if (scene === "cv2")
-    currentScene = <Cv2 onComplete={() => setScene("starry-sky")} />;
+    currentScene = (
+      <Cv2
+        onComplete={() => setScene("starry-sky")}
+        onBlowCandle={() => playMusic(kg)}
+      />
+    );
   if (scene === "starry-sky") currentScene = <StarrySky />;
 
-  return <OrientationControls>{currentScene}</OrientationControls>;
+  return (
+    <>
+      {currentScene}
+      {scene !== "door" && <RotatePrompt />}
+    </>
+  );
 }
 
 export default App;

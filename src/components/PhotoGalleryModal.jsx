@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import "./PhotoGalleryModal.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://myprojectimportant.onrender.com";
 
 // Tiện ích nén ảnh client-side sang Base64 chuẩn bị lưu vào database
 function compressImage(file, maxDimension = 1400, quality = 0.82) {
@@ -113,14 +114,10 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
       if (lightboxIndex !== null) {
         if (e.key === "Escape") setLightboxIndex(null);
         if (e.key === "ArrowLeft") {
-          setLightboxIndex((prev) =>
-            prev > 0 ? prev - 1 : images.length - 1
-          );
+          setLightboxIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
         }
         if (e.key === "ArrowRight") {
-          setLightboxIndex((prev) =>
-            prev < images.length - 1 ? prev + 1 : 0
-          );
+          setLightboxIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
         }
       } else if (e.key === "Escape") {
         onClose();
@@ -279,9 +276,7 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                   style={{ display: "none" }}
                   disabled={uploading}
                 />
-                <span className="upload-file-btn">
-                  📁 Chọn ảnh từ thiết bị
-                </span>
+                <span className="upload-file-btn">📁 Chọn ảnh từ thiết bị</span>
               </label>
 
               <span className="add-or-divider">hoặc</span>
@@ -409,7 +404,7 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                       onClick={() =>
                         downloadImage(
                           item.img,
-                          `ky-niem-${item.id || index + 1}.jpg`
+                          `ky-niem-${item.id || index + 1}.jpg`,
                         )
                       }
                     >
@@ -494,7 +489,7 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                   onClick={() =>
                     downloadImage(
                       currentLightboxImage.img,
-                      `ky-niem-${currentLightboxImage.id || lightboxIndex + 1}.jpg`
+                      `ky-niem-${currentLightboxImage.id || lightboxIndex + 1}.jpg`,
                     )
                   }
                 >
@@ -505,7 +500,11 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                   className="lightbox-btn delete"
                   title="Xóa ảnh này"
                   onClick={() => {
-                    if (window.confirm("Bạn có chắc chắn muốn xóa ảnh này khỏi kho không?")) {
+                    if (
+                      window.confirm(
+                        "Bạn có chắc chắn muốn xóa ảnh này khỏi kho không?",
+                      )
+                    ) {
                       handleDeleteImage(currentLightboxImage.id);
                     }
                   }}
@@ -541,7 +540,7 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                   onClick={(e) => {
                     e.stopPropagation();
                     setLightboxIndex((prev) =>
-                      prev > 0 ? prev - 1 : images.length - 1
+                      prev > 0 ? prev - 1 : images.length - 1,
                     );
                   }}
                 >
@@ -554,7 +553,7 @@ function PhotoGalleryModal({ isOpen, onClose, onCountChange }) {
                   onClick={(e) => {
                     e.stopPropagation();
                     setLightboxIndex((prev) =>
-                      prev < images.length - 1 ? prev + 1 : 0
+                      prev < images.length - 1 ? prev + 1 : 0,
                     );
                   }}
                 >
