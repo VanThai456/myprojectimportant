@@ -101,16 +101,17 @@ function App() {
   }
 
   function playMusic(source) {
-    if (musicRef.current) {
-      musicRef.current.pause();
-      musicRef.current.currentTime = 0;
-    }
-
-    const music = new Audio(source);
+    const music = musicRef.current || new Audio();
+    music.pause();
+    music.src = source;
+    music.currentTime = 0;
     music.loop = true;
     music.volume = 0.65;
     musicRef.current = music;
-    music.play().catch(() => {});
+    music.load();
+    music.play().catch(() => {
+      // Giữ nguyên audio đã được người dùng kích hoạt để lần đổi bài sau không bị mất quyền phát.
+    });
   }
 
   if (!isUnlocked) {
