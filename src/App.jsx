@@ -90,10 +90,43 @@ function PasswordGate({ onUnlock }) {
   );
 }
 
+function AudioControl({ volume, onVolumeChange }) {
+  const isMuted = volume === 0;
+
+  return (
+    <div className="audio-control" aria-label="Điều chỉnh âm thanh">
+      <span className="audio-control-icon" aria-hidden="true">
+        {isMuted ? "🔇" : "🔊"}
+      </span>
+      <label htmlFor="journey-volume">Âm lượng</label>
+      <input
+        id="journey-volume"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value={volume}
+        onChange={(event) => onVolumeChange(Number(event.target.value))}
+        aria-label="Âm lượng nhạc"
+      />
+    </div>
+  );
+}
+
 function App() {
   const [scene, setScene] = useState("door");
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [volume, setVolume] = useState(0.65);
   const musicRef = useRef(null);
+  const volumeRef = useRef(0.65);
+
+  function handleVolumeChange(nextVolume) {
+    volumeRef.current = nextVolume;
+    setVolume(nextVolume);
+    if (musicRef.current) {
+      musicRef.current.volume = nextVolume;
+    }
+  }
 
   function unlockJourney() {
     playMusic(nhacDiChoi);
@@ -106,7 +139,7 @@ function App() {
     music.src = source;
     music.currentTime = 0;
     music.loop = true;
-    music.volume = 0.65;
+    music.volume = volumeRef.current;
     musicRef.current = music;
     music.load();
     music.play().catch(() => {
@@ -157,6 +190,7 @@ function App() {
     <>
       {currentScene}
       {scene !== "door" && <RotatePrompt />}
+      <AudioControl volume={volume} onVolumeChange={handleVolumeChange} />
     </>
   );
 }

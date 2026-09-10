@@ -42,7 +42,7 @@
   width: clamp(90px, 12vw, 150px);
 
   left: 50%;
-  top: 87%;
+  top: 82%;
 
   transform: translateX(-50%);
 
@@ -57,7 +57,7 @@
   width: clamp(42px, 5.5vw, 70px);
 
   left: 50%;
-  top: 88%;
+  top: 83%;
 
   transform: translateX(-50%);
 
